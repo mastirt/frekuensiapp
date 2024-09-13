@@ -1,0 +1,65 @@
+// Migrate to plugins block
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+
+// Load Flutter properties
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterRoot = localProperties.getProperty('flutter.sdk')
+if (flutterRoot == null) {
+    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode', '1')
+def flutterVersionName = localProperties.getProperty('flutter.versionName', '1.0')
+
+// Apply Flutter Gradle plugin
+apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+
+android {
+    compileSdkVersion 34  // Updated to the latest SDK version
+    namespace 'com.cmalbuquerque.audio_recognition_app' 
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    aaptOptions {
+        noCompress 'tflite'
+    }
+
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+
+    defaultConfig {
+        applicationId "com.example.audio_recognition_app"
+        minSdkVersion 21
+        targetSdkVersion 34  // Updated to match compileSdkVersion
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.debug
+        }
+    }
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7"
+    implementation "org.tensorflow:tensorflow-lite-select-tf-ops:+"
+}
