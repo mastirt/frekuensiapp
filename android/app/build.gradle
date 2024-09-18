@@ -41,8 +41,8 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.audio_recognition_app"
-        minSdkVersion 21
+        applicationId "com.cmalbuquerque.audio_recognition_app"
+        minSdkVersion 24
         targetSdkVersion 34  // Updated to match compileSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

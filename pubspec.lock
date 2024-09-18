@@ -180,10 +180,10 @@ packages:
     dependency: "direct main"
     description:
       name: tflite_audio
-      sha256: "605b8fdb8c456324d6871d4e3eba13e81f206d1801fd945c7fd9c4b6e1c173b7"
+      sha256: "5eac80c2d7ee3871da802a7a1442cd4f4ce02a77737b0776eb9dae86c5d8443b"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.9"
+    version: "0.3.0"
   vector_math:
     dependency: transitive
     description:
